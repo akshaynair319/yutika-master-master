@@ -1,0 +1,47 @@
+@import '../assets/styles/variables.css';
+
+.hero {
+  width: 100vw; /* Full viewport width */
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  justify-content: flex-start; /* Align content to the left */
+  align-items: center; /* Vertically center the content */
+  text-align: left; /* Align text to the left */
+  background: var(--background-muted); /* Use variable */
+  color: var(--text-dark); /* Use variable */
+  padding: 1rem 2rem; /* Use consistent spacing */
+  box-sizing: border-box; /* Include padding in width/height calculations */
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-title {
+  font-size: 8rem;
+  font-weight: bold;
+  color: var(--text-dark); /* Use variable */
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  color: var(--text-muted); /* Use variable */
+}
+
+.hero-links {
+  display: flex;
+  gap: 1rem; /* Space between icons */
+}
+
+.hero-links a {
+  font-size: 2rem; /* Size of the icons */
+  color: var(--text-link); /* Use variable */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.hero-links a:hover {
+  color: var(--text-link-hover); /* Use variable */
+}

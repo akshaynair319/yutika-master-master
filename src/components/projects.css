@@ -1,0 +1,60 @@
+@import '../assets/styles/variables.css';
+
+.projects {
+  padding: 6rem 2rem;
+  background-color: var(--background-muted); /* Use variable */
+}
+
+.projects-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: var(--text-dark); /* Use variable */
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.project-tile {
+  background-color: var(--background-light); /* Use variable for light background */
+  border: 1px solid var(--border-light); /* Use variable for border color */
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px var(--shadow-light); /* Use variable for shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-tile:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.project-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.project-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-dark); /* Use variable */
+}
+
+.project-type {
+  font-size: 1.2rem;
+  color: var(--text-link); /* Use variable */
+}
+
+.project-description {
+  font-size: 1rem;
+  color: var(--text-muted); /* Use variable */
+}

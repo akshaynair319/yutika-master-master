@@ -1,0 +1,53 @@
+@import '../assets/styles/variables.css';
+
+.footer {
+  background-color: var(--background-muted); /* Use variable */
+  color: var(--text-dark); /* Use variable */
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  box-sizing: border-box;
+}
+
+.footer-section {
+  text-align: center;
+}
+
+.get-in-touch h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.get-in-touch p {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+.get-in-touch strong {
+  font-weight: bold;
+  color: var(--text-link-hover); /* Use variable */
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.footer-links a {
+  font-size: 1.5rem;
+  color: var(--text-link); /* Use variable */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: var(--text-link-hover); /* Use variable */
+}
+
+.footer-credits p {
+  font-size: 1rem;
+  color: var(--text-muted); /* Use variable */
+}

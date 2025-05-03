@@ -1,0 +1,11 @@
+:root {
+  --background-muted: #d3d3d3; /* Muted gray background */
+  --text-dark: #2c2c2c; /* Dark muted text color */
+  --text-muted: #4f4f4f; /* Muted gray for text */
+  --text-link: #6c757d; /* Muted gray-blue for links/icons */
+  --text-link-hover: #333333; /* Darker color for hover states */
+  --highlight: #ff6f61; /* Highlight color (e.g., for buttons or emphasis) */
+  --background-light: #ffffff; /* Light background for tiles */
+  --border-light: #e0e0e0; /* Light gray border */
+  --shadow-light: rgba(0, 0, 0, 0.1); /* Light shadow */
+}
