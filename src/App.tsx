@@ -6,17 +6,17 @@ import Footer from './components/footer';
 import Navbar from './components/navbar';
 
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
+  // const [darkMode, setDarkMode] = useState(false);
   const [showNavbar, setShowNavbar] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null); // Reference to the #root container
 
-  useEffect(() => {
-    if (darkMode) {
-      document.body.classList.add('dark-mode');
-    } else {
-      document.body.classList.remove('dark-mode');
-    }
-  }, [darkMode]);
+  // useEffect(() => {
+  //   if (darkMode) {
+  //     document.body.classList.add('dark-mode');
+  //   } else {
+  //     document.body.classList.remove('dark-mode');
+  //   }
+  // }, [darkMode]);
 
   useEffect(() => {
     const handleScroll = () => {

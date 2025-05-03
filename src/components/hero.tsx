@@ -1,8 +1,67 @@
+import { useEffect, useRef } from 'react';
 import './hero.css';
 
 function HERO() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Create particles with random speeds
+    const particles: { x: number; y: number; dx: number; dy: number; size: number }[] = [];
+    for (let i = 0; i < 100; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        dx: (Math.random() - 0.5) * 4, // Random speed in x-direction
+        dy: (Math.random() - 0.5) * 4, // Random speed in y-direction
+        size: Math.random() * 3 + 1, // Random size between 1 and 4
+      });
+    }
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach((particle) => {
+        particle.x += particle.dx;
+        particle.y += particle.dy;
+
+        // Bounce off the edges
+        if (particle.x < 0 || particle.x > canvas.width) particle.dx *= -1;
+        if (particle.y < 0 || particle.y > canvas.height) particle.dy *= -1;
+
+        // Draw the particle
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.fill();
+      });
+
+      requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+    };
+  }, []);
+
   return (
     <section className="hero">
+      <canvas ref={canvasRef} className="hero-canvas"></canvas>
       <div className="hero-content">
         <span className="hero-title">Yutika Arora</span>
         <span className="hero-subtitle">
