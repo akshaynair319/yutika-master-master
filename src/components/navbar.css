@@ -5,7 +5,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+  background-color: var(--background-light); /* Use variable for background */
   box-shadow: 0 4px 6px var(--shadow-light); /* Use variable for shadow */
   transform: translateY(-100%); /* Initially hidden */
   transition: transform 0.3s ease-in-out;

@@ -1,9 +1,17 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './hero.css';
 
 function HERO() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [darkMode, setDarkMode] = useState(true);
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+  }, [darkMode]);
 
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -63,9 +71,10 @@ function HERO() {
     <section className="hero">
       <canvas ref={canvasRef} className="hero-canvas"></canvas>
       <div className="hero-content">
-        <span className="hero-title">Yutika Arora</span>
+        <span className="hero-title" onClick={() => setDarkMode(!darkMode)}>Yutika Arora</span>
         <span className="hero-subtitle">
-          Consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Product Designer @ Goldman Sachs💻| B.Des. in Communication Design, NIFT (2018-2022)📚 |
+        Previously an intern @ Atom, Delhi Govt.
         </span>
         <div className="hero-links">
           <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">

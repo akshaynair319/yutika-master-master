@@ -6,17 +6,8 @@ import Footer from './components/footer';
 import Navbar from './components/navbar';
 
 function App() {
-  // const [darkMode, setDarkMode] = useState(false);
   const [showNavbar, setShowNavbar] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null); // Reference to the #root container
-
-  // useEffect(() => {
-  //   if (darkMode) {
-  //     document.body.classList.add('dark-mode');
-  //   } else {
-  //     document.body.classList.remove('dark-mode');
-  //   }
-  // }, [darkMode]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,7 +24,7 @@ function App() {
 
   return (
     <div id="root" ref={rootRef}>
-      <Navbar isVisible={showNavbar} />
+      <Navbar isVisible={showNavbar}/>
       <section>
         <HERO />
       </section>
