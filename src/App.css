@@ -1,21 +1,30 @@
 @import '@fortawesome/fontawesome-free/css/all.min.css';
 
 #root {
-  max-width: 1500px;
-  margin: 0 auto;
   text-align: center;
   font-size: 16px;
-  scroll-snap-type: y mandatory; /* Enable vertical scroll snapping */
-  overflow-y: scroll; /* Enable vertical scrolling */
-  height: 100vh; /* Full viewport height */
+  overflow: auto; /* Enable vertical scrolling */
 }
 
-section {
-  scroll-snap-align: start; /* Snap each section to the start */
-  min-height: 100vh; /* Ensure sections are at least 100vh */
-}
-
-.footer {
-  scroll-snap-align: end; /* Disable snapping for the footer */
-  height: auto; /* Allow the footer to take its natural height */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 5px; /* Thickness of the progress bar */
+  background: linear-gradient(
+    to right,
+    #FFADAD 0%,
+    #FFD6A5 14.3%,
+    #FDFFB6 28.6%,
+    #CAFFBF 43%,
+    #9BF6FF 57.2%,
+    #A0C4FF 71.4%,
+    #BDB2FF 85.69%,
+    #FFC6FF 100%
+  ); /* Rainbow gradient */
+  background-size: 100% 100%; /* Ensure the gradient spans the full width */
+  background-clip: content-box; /* Prevent overflow of colors */
+  border-radius: 3px; /* Rounded edges for a smoother look */
+  z-index: 10000; /* Ensure it stays above other elements */
+  transition: width 100ms ease-out; /* Smooth transition for the progress */
 }

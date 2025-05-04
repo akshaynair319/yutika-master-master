@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import HERO from './components/hero';
 import Projects from './components/projects';
@@ -7,32 +7,35 @@ import Navbar from './components/navbar';
 
 function App() {
   const [showNavbar, setShowNavbar] = useState(false);
-  const rootRef = useRef<HTMLDivElement>(null); // Reference to the #root container
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = rootRef.current?.scrollTop || 0; // Get scroll position of #root
-      console.log('Scroll Position:', scrollPosition);
-      setShowNavbar(scrollPosition > window.innerHeight * 0.5); // Show navbar after scrolling halfway through the hero section
+      const scrollTop = window.scrollY || 0; // Current scroll position
+      const scrollHeight = document.documentElement.scrollHeight; // Total scrollable height
+      const clientHeight = window.innerHeight; // Height of the viewport
+      const progress = (scrollTop / (scrollHeight - clientHeight)) * 100; // Calculate scroll progress as a percentage
+      setScrollProgress(progress);
+
+      // Show navbar after scrolling 25% of the viewport height
+      setShowNavbar(scrollTop > clientHeight * 0.25);
+
+      console.log(`Scroll Progress: ${progress.toFixed(2)}%`); // Log scroll progress
     };
 
-    const rootElement = rootRef.current;
-    rootElement?.addEventListener('scroll', handleScroll); // Attach scroll listener to #root
+    window.addEventListener('scroll', handleScroll); // Attach scroll listener to #root
 
-    return () => rootElement?.removeEventListener('scroll', handleScroll); // Cleanup listener
+    return () => window.removeEventListener('scroll', handleScroll); // Cleanup listener
   }, []);
 
   return (
-    <div id="root" ref={rootRef}>
+    <>
+      <div className="progress-bar" style={{ width: `${scrollProgress}%` }}></div>
       <Navbar isVisible={showNavbar}/>
-      <section>
-        <HERO />
-      </section>
-      <section>
-        <Projects />
-      </section>
+      <HERO />
+      <Projects />
       <Footer />
-    </div>
+    </>
   );
 }
 
