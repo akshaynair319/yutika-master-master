@@ -11,7 +11,7 @@
 }
 
 body.dark-mode {
-  --background-muted: #1e1e1e; /* Dark muted background */
+  --background-muted: #131313; /* Dark muted background */
   --text-dark: #f5f5f5; /* Light text color for dark mode */
   --text-muted: #b3b3b3; /* Muted gray for text in dark mode */
   --text-link: #9aa0a6; /* Muted gray-blue for links/icons in dark mode */

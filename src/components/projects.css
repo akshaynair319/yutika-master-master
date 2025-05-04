@@ -29,6 +29,7 @@
   padding: 1rem;
   display: flex;
   flex-direction: column;
+  z-index: 2;
 }
 
 .project-tile:hover {

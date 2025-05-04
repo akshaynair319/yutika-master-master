@@ -14,20 +14,10 @@
   overflow: hidden;
 }
 
-.hero-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0; /* Ensure the canvas is behind the content */
-}
-
 .hero-content {
   position: relative;
   display: flex;
   flex-direction: column;
-  z-index: 1; /* Ensure the content is above the canvas */
   color: var(--text-dark);
 }
 
@@ -87,9 +77,4 @@
   width: 100%;
   height: 100%;
   z-index: 0; /* Ensure animation is behind the content */
-}
-
-path {
-  stroke: transparent; /* Hide the paths */
-  stroke-width: 2;
 }

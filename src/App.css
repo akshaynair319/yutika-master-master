@@ -28,3 +28,31 @@
   z-index: 10000; /* Ensure it stays above other elements */
   transition: width 100ms ease-out; /* Smooth transition for the progress */
 }
+
+/* Grid container */
+.grid-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  z-index: 1; /* Place it above other content */
+}
+
+/* Grid points */
+.grid-point-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid-point {
+  width: 5px;
+  height: 5px;
+  background-color: #1c1c1c; /* Subtle white points */
+  border-radius: 50%;
+  transition: transform 0.2s ease-out; /* Smooth distortion effect */
+}
