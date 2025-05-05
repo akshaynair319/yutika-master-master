@@ -5,14 +5,21 @@
   top: 0;
   left: 0;
   width: 100%;
-  background-color: var(--background-light); /* Use variable for background */
-  box-shadow: 0 4px 6px var(--shadow-light); /* Use variable for shadow */
-  transform: translateY(-100%); /* Initially hidden */
-  transition: transform 0.3s ease-in-out;
   z-index: 1000;
+  transition: transform 0.3s ease-in-out;
 }
 
 .navbar.visible {
+  background-color: var(--background-light); /* Use variable for background */
+  box-shadow: 0 4px 6px var(--shadow-light); /* Use variable for shadow */
+}
+
+.navbar-title {
+  transform: translateY(-1000%); /* Initially hidden */
+  transition: transform 0.1s ease-in-out;
+  font-size: 2rem;
+}
+.navbar-title.visible {
   transform: translateY(0); /* Slide down when visible */
 }
 
@@ -20,22 +27,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-}
-
-.navbar h1 {
-  font-size: 1.5rem;
-  color: var(--text-dark); /* Use variable */
+  padding: 0.5rem 2rem;
 }
 
 .navbar-links {
   display: flex;
-  gap: 1rem; /* Space between icons */
+  border: 0.01rem solid white;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
 }
 
 .navbar-links a {
-  font-size: 1.5rem; /* Size of the icons */
-  color: var(--text-link); /* Use variable */
+  font-size: 1.2rem; /* Size of the icons */
+  color: white; /* Use variable */
   text-decoration: none;
   transition: color 0.3s ease;
 }

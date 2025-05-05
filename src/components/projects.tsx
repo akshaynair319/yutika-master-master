@@ -61,7 +61,7 @@ function Projects() {
   ];
 
   return (
-    <div className="page-section projects">
+    <section className="page-section projects" id="work">
       <div className="projects-title">
         <span>My Pokémons</span>
       </div>
@@ -75,7 +75,7 @@ function Projects() {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 }
 

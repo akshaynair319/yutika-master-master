@@ -56,6 +56,7 @@
   border-style: dashed;
   display: flex;
   gap: 0.5rem; /* Space between icon and text */
+  align-items: center;
 }
 
 .hero-image {
