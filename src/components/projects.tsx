@@ -61,8 +61,10 @@ function Projects() {
   ];
 
   return (
-    <section className="projects">
-      <h2 className="projects-title">My Pokémons</h2>
+    <div className="page-section projects">
+      <div className="projects-title">
+        <span>My Pokémons</span>
+      </div>
       <div className="projects-grid">
         {projectData.map((project) => (
           <div key={project.id} className="project-tile">
@@ -73,7 +75,7 @@ function Projects() {
           </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 }
 

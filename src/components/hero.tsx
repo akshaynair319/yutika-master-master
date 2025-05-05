@@ -1,5 +1,14 @@
 import { useEffect, useState } from 'react';
 import './hero.css';
+import gs from '../assets/images/gs.png'; // Import the image
+import nift from '../assets/images/nift.png'; // Import the image
+import delhi from '../assets/images/delhi.png'; // Import the image
+import atom from '../assets/images/atom.png'; // Import the image
+import yutika from '../assets/yutika.svg'; // Import the image
+import char from '../assets/char.svg'; // Import the image
+import sticky from '../assets/sticky.svg'; // Import the image
+import pen from '../assets/pen.svg'; // Import the image
+import bezier from '../assets/bezier.svg'; // Import the image
 
 function HERO() {
   // Initialize darkMode based on the user's system preference
@@ -14,290 +23,109 @@ function HERO() {
     }
   }, [darkMode]);
 
-  const [charmanders, setCharmanders] = useState(
-    Array.from({ length: 5 }, () => ({
-      x: Math.random() * window.innerWidth, // Random initial x position
-      y: Math.random() * window.innerHeight, // Random initial y position
-      dx: (Math.random() - 0.5) * 100, // Random velocity in x direction
-      dy: (Math.random() - 0.5) * 100, // Random velocity in y direction
-      size: Math.random() * 4 + 1, // Random size between 1 and 5
-    }))
-  );
-
   useEffect(() => {
-    const updateCharmanders = () => {
-      setCharmanders((prevCharmanders) =>
-        prevCharmanders.map((charmander) => {
-          let { x, y, dx, dy, size } = charmander;
+    const canvas = document.getElementById('rotatingCanvas');
+    if (!canvas) {
+      console.error('Canvas element not found');
+      return;
+    }
+    const ctx = (canvas as HTMLCanvasElement).getContext('2d');
+    if (!ctx) {
+      console.error('2D context not available');
+      return;
+    }
+    const images = [yutika, char, sticky, pen, bezier, char, yutika, pen]; // Array of image sources
+    const numImages = 8; // Number of images
+    const radius = 150; // Radius of the circle
+    const centerX = (canvas as HTMLCanvasElement).width / 2;
+    const centerY = (canvas as HTMLCanvasElement).height / 2;
+    let angleOffset = 0; // Initial rotation angle
 
-          // Update position
-          x += dx;
-          y += dy;
+    // Load images
+    const loadedImages: HTMLImageElement[] = [];
+    images.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+      loadedImages.push(img);
+    });
 
-          let boundaryHit = false;
-          // Bounce off walls
-          if (x <= 0 || x + size >= window.innerWidth) {
-            dx *= -1
-            boundaryHit = true;
-          };
-          if (y <= 0 || y + size >= window.innerHeight) {
-            dy *= -1
-            boundaryHit = true;
-          };
+    // Resize canvas to fit container
+    (canvas as HTMLCanvasElement).width = canvas.offsetWidth;
+    (canvas as HTMLCanvasElement).height = canvas.offsetHeight;
 
-          return { x, y, dx, dy, size: boundaryHit ? Math.random() * 4 + 1 : size };
-        })
-      );
+    // Draw the circle and images
+    const draw = () => {
+      ctx.clearRect(0, 0, (canvas as HTMLCanvasElement).width, (canvas as HTMLCanvasElement).height); // Clear the canvas
+
+      // Draw outer circle
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, radius + 50, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(217, 217, 217, 0.02)';
+      ctx.fill();
+      
+      // Draw the middle circle
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(217, 217, 217, 0.5)';
+      ctx.setLineDash([4, 4]); // Dotted effect
+      ctx.fillStyle = 'rgba(217, 217, 217, 0.02)';
+      ctx.fill();
+      ctx.stroke();
+
+      // Draw the images
+      for (let i = 0; i < numImages; i++) {
+        const angle = (i * (2 * Math.PI)) / numImages + angleOffset; // Calculate angle for each image
+        const x = centerX + radius * Math.cos(angle) - 15; // Adjust x to center the image
+        const y = centerY + radius * Math.sin(angle) - 15; // Adjust y to center the image
+        const img = loadedImages[i % loadedImages.length]; // Cycle through images
+
+        if (img.complete) {
+          ctx.drawImage(img, x, y, 30, 30); // Draw the image
+        }
+      }
+
+      // Draw inner circle
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, radius - 50, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(217, 217, 217, 0.02)';
+      ctx.fill();
+
+      const img = loadedImages[0];
+
+      if (img.complete) {
+        ctx.drawImage(img, centerX - 50, centerY - 50, 100, 100); // Draw the image
+      }
+
+      angleOffset += 0.01; // Increment the rotation angle
+      requestAnimationFrame(draw); // Animate
     };
 
-    let animationFrameId: number;
-
-    const animate = () => {
-      updateCharmanders();
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    animate(); // Start the animation
-
-    return () => cancelAnimationFrame(animationFrameId); // Cleanup on unmount
+    draw(); // Start the animation
   }, []);
 
   return (
-    <section className="hero">
+    <div className="page-section hero">
       <div className="hero-content">
-        <span className="hero-title" onClick={() => setDarkMode(!darkMode)}>Yutika Arora</span>
+        <span className="hero-title" onClick={() => setDarkMode(!darkMode)}>Hi, I'm Yutika!</span>
         <span className="hero-subtitle">
-        Product Designer @ Goldman Sachs💻| B.Des. in Communication Design, NIFT (2018-2022)📚 |
-        Previously an intern @ Atom, Delhi Govt.
+        I design intuitive experiences by stepping into the user's world and turning complexity into clarity.
         </span>
-        <div className="hero-links">
-          <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-            <i className="fab fa-linkedin"></i>
-          </a>
-          <a href="https://www.behance.net" target="_blank" rel="noopener noreferrer" aria-label="Behance">
-            <i className="fab fa-behance"></i>
-          </a>
-          <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            <i className="fab fa-instagram"></i>
-          </a>
+        <div className="hero-jobs">
+          <span className="hero-job">
+            Product Designer at <img src={gs} alt="Goldman Sachs" className="hero-image" /> Goldman Sachs
+          </span>
+          <span className="hero-job">
+            Previously an inern at <img src={atom} alt="Atom EI" className="hero-image" /> Atom EI and <img src={delhi} alt="Delhi Govt." className="hero-image" /> Govt. of India
+          </span>
+          <span className="hero-job">
+            Studied at <img src={nift} alt="NIFT" className="hero-image" />National Institute of Fashion Technology
+          </span>
         </div>
       </div>
-
-      <svg className="hero-animation" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-        {charmanders.map((charmander, index) => (
-          <g key={index} transform={`translate(${charmander.x}, ${charmander.y})`}>
-            <svg width={`${charmander.size}%`} height={`${charmander.size}%`} viewBox="0 0 1050 900" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="150" y="50" width="50" height="50" fill="black"/>
-            <rect x="150" y="100" width="50" height="50" fill="#D3140A"/>
-            <rect x="100" y="150" width="50" height="50" fill="#D3140A"/>
-            <rect x="150" y="150" width="50" height="50" fill="#D3140A"/>
-            <rect x="150" y="200" width="50" height="50" fill="#D3140A"/>
-            <rect x="200" y="200" width="50" height="50" fill="#D3140A"/>
-            <rect x="100" y="200" width="50" height="50" fill="#D3140A"/>
-            <rect x="50" y="200" width="50" height="50" fill="#D3140A"/>
-            <rect x="50" y="250" width="50" height="50" fill="#D3140A"/>
-            <rect x="50" y="300" width="50" height="50" fill="#D3140A"/>
-            <rect x="150" y="250" width="50" height="50" fill="#D3140A"/>
-            <rect x="200" y="250" width="50" height="50" fill="#D3140A"/>
-            <rect x="200" y="300" width="50" height="50" fill="#D3140A"/>
-            <rect x="150" y="300" width="50" height="50" fill="#FEEA35"/>
-            <rect x="150" y="400" width="50" height="50" fill="#F65924"/>
-            <rect x="100" y="250" width="50" height="50" fill="#FEEA35"/>
-            <rect x="150" y="350" width="50" height="50" fill="#FEEA35"/>
-            <rect x="150" y="450" width="50" height="50" fill="#F65924"/>
-            <rect x="200" y="450" width="50" height="50" fill="#F65924"/>
-            <rect x="200" y="500" width="50" height="50" fill="#F65924"/>
-            <rect x="250" y="500" width="50" height="50" fill="#F65924"/>
-            <rect x="200" y="550" width="50" height="50" fill="#F65924"/>
-            <rect x="250" y="550" width="50" height="50" fill="#F65924"/>
-            <rect x="350" y="550" width="50" height="50" fill="#F65924"/>
-            <rect x="350" y="600" width="50" height="50" fill="#F65924"/>
-            <rect x="400" y="600" width="50" height="50" fill="#F65924"/>
-            <rect x="450" y="600" width="50" height="50" fill="#F65924"/>
-            <rect x="350" y="650" width="50" height="50" fill="#F65924"/>
-            <rect x="400" y="650" width="50" height="50" fill="#F65924"/>
-            <rect x="450" y="650" width="50" height="50" fill="#F65924"/>
-            <rect x="500" y="650" width="50" height="50" fill="#F65924"/>
-            <rect x="400" y="700" width="50" height="50" fill="#F65924"/>
-            <rect x="450" y="700" width="50" height="50" fill="#F65924"/>
-            <rect x="450" y="750" width="50" height="50" fill="#F65924"/>
-            <rect x="450" y="800" width="50" height="50" fill="#F65924"/>
-            <rect x="500" y="700" width="50" height="50" fill="#F65924"/>
-            <rect x="400" y="550" width="50" height="50" fill="#F65924"/>
-            <rect x="400" y="500" width="50" height="50" fill="#F65924"/>
-            <rect x="400" y="450" width="50" height="50" fill="#F65924"/>
-            <rect x="500" y="550" width="50" height="50" fill="#F65924"/>
-            <rect x="500" y="500" width="50" height="50" fill="#F65924"/>
-            <rect x="500" y="450" width="50" height="50" fill="#F65924"/>
-            <rect x="500" y="350" width="50" height="50" fill="#F65924"/>
-            <rect x="550" y="350" width="50" height="50" fill="#F65924"/>
-            <rect x="600" y="350" width="50" height="50" fill="#F65924"/>
-            <rect x="650" y="350" width="50" height="50" fill="#F65924"/>
-            <rect x="650" y="100" width="50" height="50" fill="#F65924"/>
-            <rect x="700" y="100" width="50" height="50" fill="#F65924"/>
-            <rect x="750" y="100" width="50" height="50" fill="#F65924"/>
-            <rect x="800" y="100" width="50" height="50" fill="#F65924"/>
-            <rect x="850" y="100" width="50" height="50" fill="#F65924"/>
-            <rect x="800" y="250" width="50" height="50" fill="#F65924"/>
-            <rect x="850" y="250" width="50" height="50" fill="#F65924"/>
-            <rect x="900" y="250" width="50" height="50" fill="#F65924"/>
-            <rect x="950" y="250" width="50" height="50" fill="#F65924"/>
-            <rect x="600" y="100" width="50" height="50" fill="#F65924"/>
-            <rect x="550" y="450" width="50" height="50" fill="#F65924"/>
-            <rect x="600" y="450" width="50" height="50" fill="#F65924"/>
-            <rect x="650" y="450" width="50" height="50" fill="#F65924"/>
-            <rect x="650" y="200" width="50" height="50" fill="#F65924"/>
-            <rect x="700" y="200" width="50" height="50" fill="#F65924"/>
-            <rect x="750" y="200" width="50" height="50" fill="#F65924"/>
-            <rect x="800" y="200" width="50" height="50" fill="#F65924"/>
-            <rect x="850" y="200" width="50" height="50" fill="#F65924"/>
-            <rect x="900" y="200" width="50" height="50" fill="#F65924"/>
-            <rect x="800" y="350" width="50" height="50" fill="#F65924"/>
-            <rect x="850" y="350" width="50" height="50" fill="#F65924"/>
-            <rect x="900" y="350" width="50" height="50" fill="#F65924"/>
-            <rect x="950" y="350" width="50" height="50" fill="#F65924"/>
-            <rect x="600" y="200" width="50" height="50" fill="#F65924"/>
-            <rect x="550" y="200" width="50" height="50" fill="#F65924"/>
-            <rect x="650" y="250" width="50" height="50" fill="#F65924"/>
-            <rect x="600" y="250" width="50" height="50" fill="#F65924"/>
-            <rect x="550" y="250" width="50" height="50" fill="#F65924"/>
-            <rect x="700" y="450" width="50" height="50" fill="#F65924"/>
-            <rect x="700" y="350" width="50" height="50" fill="black"/>
-            <rect x="750" y="350" width="50" height="50" fill="black"/>
-            <rect x="750" y="450" width="50" height="50" fill="#F65924"/>
-            <rect x="800" y="450" width="50" height="50" fill="#F65924"/>
-            <rect x="600" y="500" width="50" height="50" fill="#F65924"/>
-            <rect x="650" y="500" width="50" height="50" fill="#F65924"/>
-            <rect x="500" y="400" width="50" height="50" fill="#F65924"/>
-            <rect x="500" y="300" width="50" height="50" fill="#F65924"/>
-            <rect x="550" y="300" width="50" height="50" fill="#F65924"/>
-            <rect x="600" y="300" width="50" height="50" fill="#F65924"/>
-            <rect x="650" y="300" width="50" height="50" fill="#F65924"/>
-            <rect x="650" y="50" width="50" height="50" fill="#F65924"/>
-            <rect x="700" y="50" width="50" height="50" fill="#F65924"/>
-            <rect x="750" y="50" width="50" height="50" fill="#F65924"/>
-            <rect x="800" y="50" width="50" height="50" fill="#F65924"/>
-            <rect x="550" y="400" width="50" height="50" fill="#F65924"/>
-            <rect x="600" y="400" width="50" height="50" fill="#F65924"/>
-            <rect x="650" y="400" width="50" height="50" fill="#F65924"/>
-            <rect x="650" y="150" width="50" height="50" fill="#F65924"/>
-            <rect x="700" y="150" width="50" height="50" fill="#F65924"/>
-            <rect x="750" y="150" width="50" height="50" fill="#F65924"/>
-            <rect x="800" y="150" width="50" height="50" fill="#F65924"/>
-            <rect x="850" y="150" width="50" height="50" fill="#F65924"/>
-            <rect x="800" y="300" width="50" height="50" fill="#F65924"/>
-            <rect x="850" y="300" width="50" height="50" fill="#F65924"/>
-            <rect x="900" y="300" width="50" height="50" fill="#F65924"/>
-            <rect x="950" y="300" width="50" height="50" fill="#F65924"/>
-            <rect x="600" y="150" width="50" height="50" fill="#F65924"/>
-            <rect x="700" y="400" width="50" height="50" fill="#F65924"/>
-            <rect x="700" y="300" width="50" height="50" fill="black"/>
-            <rect x="750" y="300" width="50" height="50" fill="black"/>
-            <rect x="750" y="250" width="50" height="50" fill="white"/>
-            <rect x="700" y="250" width="50" height="50" fill="black"/>
-            <rect x="750" y="400" width="50" height="50" fill="#F65924"/>
-            <rect x="800" y="400" width="50" height="50" fill="#F65924"/>
-            <rect x="850" y="400" width="50" height="50" fill="#F65924"/>
-            <rect x="900" y="400" width="50" height="50" fill="#F65924"/>
-            <rect x="550" y="550" width="50" height="50" fill="#F65924"/>
-            <rect x="450" y="550" width="50" height="50" fill="#F65924"/>
-            <rect x="450" y="500" width="50" height="50" fill="#F65924"/>
-            <rect x="450" y="450" width="50" height="50" fill="#F65924"/>
-            <rect x="450" y="400" width="50" height="50" fill="#F65924"/>
-            <rect x="250" y="600" width="50" height="50" fill="#F65924"/>
-            <rect x="100" y="300" width="50" height="50" fill="#FEEA35"/>
-            <rect x="100" y="100" width="50" height="50" fill="black"/>
-            <rect x="200" y="100" width="50" height="50" fill="black"/>
-            <rect x="200" y="150" width="50" height="50" fill="black"/>
-            <rect x="250" y="200" width="50" height="50" fill="black"/>
-            <rect x="250" y="250" width="50" height="50" fill="black"/>
-            <rect x="250" y="300" width="50" height="50" fill="black"/>
-            <rect x="200" y="350" width="50" height="50" fill="black"/>
-            <rect x="200" y="400" width="50" height="50" fill="black"/>
-            <rect x="250" y="450" width="50" height="50" fill="black"/>
-            <rect x="300" y="500" width="50" height="50" fill="black"/>
-            <rect x="350" y="500" width="50" height="50" fill="black"/>
-            <rect x="350" y="453" width="50" height="50" fill="black"/>
-            <rect x="350" y="450" width="50" height="50" fill="black"/>
-            <rect x="400" y="400" width="50" height="50" fill="black"/>
-            <rect x="450" y="350" width="50" height="50" fill="black"/>
-            <rect x="450" y="300" width="50" height="50" fill="black"/>
-            <rect x="500" y="250" width="50" height="50" fill="black"/>
-            <rect x="500" y="200" width="50" height="50" fill="black"/>
-            <rect x="550" y="150" width="50" height="50" fill="black"/>
-            <rect x="550" y="100" width="50" height="50" fill="black"/>
-            <rect x="600" y="50" width="50" height="50" fill="black"/>
-            <rect x="650" width="50" height="50" fill="black"/>
-            <rect x="700" width="50" height="50" fill="black"/>
-            <rect x="750" width="50" height="50" fill="black"/>
-            <rect x="800" width="50" height="50" fill="black"/>
-            <rect x="850" y="50" width="50" height="50" fill="black"/>
-            <rect x="900" y="100" width="50" height="50" fill="black"/>
-            <rect x="900" y="150" width="50" height="50" fill="black"/>
-            <rect x="950" y="200" width="50" height="50" fill="black"/>
-            <rect x="1000" y="250" width="50" height="50" fill="black"/>
-            <rect x="1000" y="300" width="50" height="50" fill="black"/>
-            <rect x="1000" y="350" width="50" height="50" fill="black"/>
-            <rect x="950" y="400" width="50" height="50" fill="black"/>
-            <rect x="900" y="450" width="50" height="50" fill="black"/>
-            <rect x="850" y="450" width="50" height="50" fill="black"/>
-            <rect x="800" y="500" width="50" height="50" fill="black"/>
-            <rect x="750" y="500" width="50" height="50" fill="black"/>
-            <rect x="700" y="500" width="50" height="50" fill="black"/>
-            <rect x="750" y="550" width="50" height="50" fill="black"/>
-            <rect x="750" y="600" width="50" height="50" fill="black"/>
-            <rect x="700" y="650" width="50" height="50" fill="black"/>
-            <rect x="600" y="550" width="50" height="50" fill="black"/>
-            <rect x="650" y="550" width="50" height="50" fill="#FEEA35"/>
-            <rect x="650" y="600" width="50" height="50" fill="#FEEA35"/>
-            <rect x="600" y="600" width="50" height="50" fill="#FEEA35"/>
-            <rect x="600" y="650" width="50" height="50" fill="#FEEA35"/>
-            <rect x="550" y="650" width="50" height="50" fill="#FEEA35"/>
-            <rect x="650" y="650" width="50" height="50" fill="#FEEA35"/>
-            <rect x="600" y="700" width="50" height="50" fill="#FEEA35"/>
-            <rect x="550" y="700" width="50" height="50" fill="#FEEA35"/>
-            <rect x="700" y="550" width="50" height="50" fill="#FEEA35"/>
-            <rect x="700" y="600" width="50" height="50" fill="#FEEA35"/>
-            <rect x="550" y="500" width="50" height="50" fill="black"/>
-            <rect x="550" y="600" width="50" height="50" fill="black"/>
-            <rect x="500" y="600" width="50" height="50" fill="black"/>
-            <rect x="800" y="650" width="50" height="50" fill="black"/>
-            <rect x="750" y="700" width="50" height="50" fill="black"/>
-            <rect x="700" y="700" width="50" height="50" fill="black"/>
-            <rect x="650" y="700" width="50" height="50" fill="black"/>
-            <rect x="600" y="750" width="50" height="50" fill="black"/>
-            <rect x="550" y="750" width="50" height="50" fill="black"/>
-            <rect x="550" y="800" width="50" height="50" fill="black"/>
-            <rect x="500" y="850" width="50" height="50" fill="black"/>
-            <rect x="450" y="850" width="50" height="50" fill="black"/>
-            <rect x="400" y="850" width="50" height="50" fill="black"/>
-            <rect x="350" y="850" width="50" height="50" fill="black"/>
-            <rect x="350" y="800" width="50" height="50" fill="black"/>
-            <rect x="350" y="750" width="50" height="50" fill="black"/>
-            <rect x="400" y="750" width="50" height="50" fill="black"/>
-            <rect x="500" y="750" width="50" height="50" fill="black"/>
-            <rect x="300" y="550" width="50" height="50" fill="black"/>
-            <rect x="300" y="600" width="50" height="50" fill="black"/>
-            <rect x="300" y="650" width="50" height="50" fill="black"/>
-            <rect x="350" y="700" width="50" height="50" fill="black"/>
-            <rect x="300" y="700" width="50" height="50" fill="black"/>
-            <rect x="50" y="150" width="50" height="50" fill="black"/>
-            <rect y="200" width="50" height="50" fill="black"/>
-            <rect y="250" width="50" height="50" fill="black"/>
-            <rect y="300" width="50" height="50" fill="black"/>
-            <rect x="50" y="350" width="50" height="50" fill="black"/>
-            <rect x="100" y="350" width="50" height="50" fill="black"/>
-            <rect x="100" y="400" width="50" height="50" fill="black"/>
-            <rect x="100" y="450" width="50" height="50" fill="black"/>
-            <rect x="150" y="500" width="50" height="50" fill="black"/>
-            <rect x="150" y="550" width="50" height="50" fill="black"/>
-            <rect x="200" y="600" width="50" height="50" fill="black"/>
-            <rect x="250" y="650" width="50" height="50" fill="black"/>
-            </svg>
-          </g>
-        ))}
-      </svg>
-    </section>
+      <div className="hero-animation">
+        <canvas id="rotatingCanvas" className="hero-canvas" style={{height: "100%", width: "100%"}}></canvas>
+      </div>
+    </div>
   );
 }
 

@@ -2,13 +2,13 @@ import './footer.css';
 
 function Footer() {
   return (
-    <footer className="footer">
+    <div className="page-section footer">
       <div className="footer-section get-in-touch">
-        <h3>Let's get in touch</h3>
-        <p>Have some interesting projects that you'd want me to be a part of?</p>
-        <p>
+        <span>Let's get in touch</span>
+        <span>Have some interesting projects that you'd want me to be a part of?</span>
+        <span>
           Drop me a message at: <strong>design@yutikaarora.com</strong>
-        </p>
+        </span>
       </div>
       <div className="footer-section footer-links">
         <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
@@ -22,9 +22,9 @@ function Footer() {
         </a>
       </div>
       <div className="footer-section footer-credits">
-        <p>Made with ❤️ by Yutika Arora</p>
+        <span>Made with ❤️ by Yutika Arora</span>
       </div>
-    </footer>
+    </div>
   );
 }
 

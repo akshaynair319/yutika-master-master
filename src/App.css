@@ -37,7 +37,6 @@
   width: 100%;
   height: 100%;
   display: grid;
-  z-index: 1; /* Place it above other content */
 }
 
 /* Grid points */
@@ -55,4 +54,8 @@
   background-color: #1c1c1c; /* Subtle white points */
   border-radius: 50%;
   transition: transform 0.2s ease-out; /* Smooth distortion effect */
+}
+
+.page-section {
+  padding: 2rem 4rem
 }

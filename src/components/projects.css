@@ -1,15 +1,21 @@
 @import '../assets/styles/variables.css';
 
 .projects {
-  padding: 6rem 2rem;
   background-color: var(--background-muted); /* Use variable */
+  display: flex;
+  flex-direction: column;
 }
 
 .projects-title {
   text-align: center;
   font-size: 2rem;
   margin-bottom: 2rem;
-  color: var(--text-dark); /* Use variable */
+  color: var(--text-dark);
+  width: fit-content;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  /* display: flex; */
+  z-index: 2;
 }
 
 .projects-grid {

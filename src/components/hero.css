@@ -1,17 +1,15 @@
 @import '../assets/styles/variables.css';
 
 .hero {
-  position: relative;
   height: 100vh; /* Full viewport height */
   display: flex;
-  justify-content: flex-start; /* Align content to the left */
-  align-items: center; /* Vertically center the content */
+  flex-direction: row; /* Align items in a row */
   text-align: left; /* Align text to the left */
   background: var(--background-muted); /* Use variable */
   color: var(--text-dark); /* Use variable */
-  padding: 1rem 2rem; /* Use consistent spacing */
   box-sizing: border-box; /* Include padding in width/height calculations */
   overflow: hidden;
+  align-items: center; /* Center items vertically */
 }
 
 .hero-content {
@@ -19,19 +17,52 @@
   display: flex;
   flex-direction: column;
   color: var(--text-dark);
+  width: 50%;
 }
 
+.hero-animation {
+  width: 50%;
+  height: 450px;
+  z-index: 0
+}
 .hero-title {
-  font-size: 7rem;
-  font-weight: bold;
+  font-size: 4rem;
   color: var(--text-dark); /* Use variable */
+  margin-bottom: 2rem;
+  font-weight: 700; /* Bold font weight */
 }
 
 .hero-subtitle {
   font-size: 1.5rem;
   margin-bottom: 2rem;
   color: var(--text-muted); /* Use variable */
-  max-width: 75%; /* Ensure the subtitle doesn't stretch too wide */
+  font-weight: 400; /* Normal font weight */
+}
+
+.hero-jobs {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Space between job items */
+}
+
+.hero-job {
+  padding: 0.75rem 1.5rem; /* Padding for job items */
+  border-radius: 3rem; /* Rounded corners */
+  background: var(--tile-background); /* Use variable */
+  color: var(--text-dark); /* Use variable */
+  border: 1px dashed var(--text-muted); /* Use variable */
+  width: fit-content;
+  border-style: dashed;
+  display: flex;
+  gap: 0.5rem; /* Space between icon and text */
+}
+
+.hero-image {
+  width: 1rem; /* Adjust the size as needed */
+  height: 1rem; /* Keep it square */
+  border-radius: 50%; /* Make it circular */
+  object-fit: cover; /* Ensure the image fits within the circle */
 }
 
 @media (max-width: 768px) {
@@ -54,27 +85,14 @@
   }
 }
 
-.hero-links {
-  display: flex;
-  gap: 1rem; /* Space between icons */
+.rotating-group {
+  animation: rotate 10s linear infinite;
 }
-
-.hero-links a {
-  font-size: 2rem; /* Size of the icons */
-  color: var(--text-link); /* Use variable */
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.hero-links a:hover {
-  color: var(--text-link-hover); /* Use variable */
-}
-
-.hero-animation {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0; /* Ensure animation is behind the content */
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
