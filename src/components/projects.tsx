@@ -1,77 +1,79 @@
 import './projects.css';
+import atom from '../assets/images/atom.png'; // Import the image
+import cover from '../assets/images/cover.png'; // Import the image
+import mess from '../assets/images/mess.png'; // Import the image
+import niftt from '../assets/images/niftt.png'; // Import the image
 
 function Projects() {
   const projectData = [
     {
       id: 1,
-      image: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png', // Bulbasaur
-      name: 'Bulbasaur',
-      type: 'Grass/Poison',
-      description: 'A grass/poison-type Pokémon known for its plant bulb on its back.',
+      image: cover, // Bulbasaur
+      name: 'Form Pattern Documentation',
+      type: 'Goldman Sachs | Internship',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do.',
+      infoButton: 'Under NDA'
     },
     {
       id: 2,
-      image: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png', // Charmander
-      name: 'Charmander',
-      type: 'Fire',
-      description: 'A fire-type Pokémon with a flame on its tail that indicates its life force.',
+      image: mess, // Charmander
+      name: 'Atom Meditation Mobile App',
+      type: 'Atom EI | Internship',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do.',
+      infoButton: 'Coming Soon'
     },
     {
       id: 3,
-      image: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png', // Squirtle
-      name: 'Squirtle',
-      type: 'Water',
-      description: 'A water-type Pokémon that withdraws into its shell for protection.',
+      image: niftt, // Squirtle
+      name: 'Connection Aid',
+      type: 'Delhi Govt. | Internship',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do.',
+      infoButton: 'Read Full Case Study'
     },
     {
       id: 4,
-      image: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png', // Pikachu
-      name: 'Pikachu',
-      type: 'Electric',
-      description: 'An electric-type Pokémon and the mascot of the Pokémon franchise.',
+      image: mess, // Bulbasaur
+      name: 'Form Pattern Documentation',
+      type: 'Goldman Sachs | Internship',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do.',
+      infoButton: 'Under NDA'
     },
     {
       id: 5,
-      image: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/39.png', // Jigglypuff
-      name: 'Jigglypuff',
-      type: 'Fairy',
-      description: 'A fairy-type Pokémon known for its ability to sing opponents to sleep.',
+      image: niftt, // Charmander
+      name: 'Atom Meditation Mobile App',
+      type: 'Atom EI | Internship',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do.',
+      infoButton: 'Coming Soon'
     },
     {
       id: 6,
-      image: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png', // Gengar
-      name: 'Gengar',
-      type: 'Ghost/Poison',
-      description: 'A ghost/poison-type Pokémon that lurks in the shadows.',
-    },
-    {
-      id: 7,
-      image: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/143.png', // Snorlax
-      name: 'Snorlax',
-      type: 'Normal',
-      description: 'A normal-type Pokémon that loves to eat and sleep.',
-    },
-    {
-      id: 8,
-      image: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png', // Mewtwo
-      name: 'Mewtwo',
-      type: 'Psychic',
-      description: 'A psychic-type Pokémon created through genetic manipulation.',
+      image: cover, // Squirtle
+      name: 'Connection Aid',
+      type: 'Delhi Govt. | Internship',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do.',
+      infoButton: 'Read Full Case Study'
     },
   ];
 
   return (
-    <section className="page-section projects" id="work">
+    <section className="page-section projects" id="projects">
       <div className="projects-title">
-        <span>My Pokémons</span>
+        <span className="primary">Featured Work</span>
+        <span className='secondary'>All Projects <i className="fas fa-external-link-alt"></i> </span>
       </div>
       <div className="projects-grid">
         {projectData.map((project) => (
           <div key={project.id} className="project-tile">
             <img src={project.image} alt={project.name} className="project-image" />
-            <span className="project-name">{project.name}</span>
-            <span className="project-type">{project.type}</span>
-            <span className="project-description">{project.description}</span>
+            <div className="project-content">
+              <span className="project-name">{project.name}</span>
+              <span className="project-type">{project.type}</span>
+              <span className="project-description">{project.description}</span>
+              <span className="hero-job" style={{marginTop: 'auto', fontSize: '0.75rem'}}>
+                {project.infoButton} <img src={atom} alt="Atom EI" className="hero-image" />
+              </span>
+            </div>
           </div>
         ))}
       </div>

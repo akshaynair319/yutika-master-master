@@ -6,7 +6,6 @@ import Footer from './components/footer';
 import Navbar from './components/navbar';
 
 function App() {
-  const [showNavbar, setShowNavbar] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [gridDimensions, setGridDimensions] = useState({ rows: 0, cols: 0 });
@@ -31,9 +30,6 @@ function App() {
       const clientHeight = window.innerHeight; // Height of the viewport
       const progress = (scrollTop / (scrollHeight - clientHeight)) * 100; // Calculate scroll progress as a percentage
       setScrollProgress(progress);
-
-      // Show navbar after scrolling 25% of the viewport height
-      setShowNavbar(scrollTop > clientHeight * 0.25);
     };
 
     window.addEventListener('scroll', handleScroll); // Attach scroll listener to #root
@@ -48,7 +44,7 @@ function App() {
   return (
     <>
       <div className="progress-bar" style={{ width: `${scrollProgress}%` }}></div>
-      <Navbar isVisible={showNavbar}/>
+      <Navbar/>
       <div className="grid-container" onMouseMove={handleMouseMove} style={{
                 gridTemplateColumns: `repeat(${gridDimensions.cols}, 1fr)`,
                 gridTemplateRows: `repeat(${gridDimensions.rows}, 1fr)`

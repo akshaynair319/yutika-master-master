@@ -16,101 +16,118 @@ function HERO() {
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
   useEffect(() => {
-    if (darkMode) {
       document.body.classList.add('dark-mode');
-    } else {
-      document.body.classList.remove('dark-mode');
-    }
-  }, [darkMode]);
+  }, []);
 
   useEffect(() => {
-    const canvas = document.getElementById('rotatingCanvas');
+    const canvas = document.getElementById('rotatingCanvas') as HTMLCanvasElement;
     if (!canvas) {
       console.error('Canvas element not found');
       return;
     }
-    const ctx = (canvas as HTMLCanvasElement).getContext('2d');
+
+    const ctx = canvas.getContext('2d');
     if (!ctx) {
       console.error('2D context not available');
       return;
     }
+
+    let angleOffset = 0; // Initial rotation angle
     const images = [yutika, char, sticky, pen, bezier, char, yutika, pen]; // Array of image sources
     const numImages = 8; // Number of images
-    const radius = 150; // Radius of the circle
-    const centerX = (canvas as HTMLCanvasElement).width / 2;
-    const centerY = (canvas as HTMLCanvasElement).height / 2;
-    let angleOffset = 0; // Initial rotation angle
+    const loadedImages: HTMLImageElement[] = [];
 
     // Load images
-    const loadedImages: HTMLImageElement[] = [];
     images.forEach((src) => {
       const img = new Image();
       img.src = src;
       loadedImages.push(img);
     });
 
-    // Resize canvas to fit container
-    (canvas as HTMLCanvasElement).width = canvas.offsetWidth;
-    (canvas as HTMLCanvasElement).height = canvas.offsetHeight;
+    const resizeCanvas = () => {
+      // Resize canvas to fit container
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
 
-    // Draw the circle and images
-    const draw = () => {
-      ctx.clearRect(0, 0, (canvas as HTMLCanvasElement).width, (canvas as HTMLCanvasElement).height); // Clear the canvas
+      // Recalculate dependent variables
+      console.log(canvas.width, canvas.height);
+      const radius = Math.min(canvas.height, canvas.width) / 2; // Radius of the circle
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
 
-      // Draw outer circle
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, radius + 50, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(217, 217, 217, 0.02)';
-      ctx.fill();
-      
-      // Draw the middle circle
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(217, 217, 217, 0.5)';
-      ctx.setLineDash([4, 4]); // Dotted effect
-      ctx.fillStyle = 'rgba(217, 217, 217, 0.02)';
-      ctx.fill();
-      ctx.stroke();
+      // Redraw everything
+      const draw = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
 
-      // Draw the images
-      for (let i = 0; i < numImages; i++) {
-        const angle = (i * (2 * Math.PI)) / numImages + angleOffset; // Calculate angle for each image
-        const x = centerX + radius * Math.cos(angle) - 15; // Adjust x to center the image
-        const y = centerY + radius * Math.sin(angle) - 15; // Adjust y to center the image
-        const img = loadedImages[i % loadedImages.length]; // Cycle through images
+        // Draw outer circle
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(217, 217, 217, 0.02)';
+        ctx.fill();
 
-        if (img.complete) {
-          ctx.drawImage(img, x, y, 30, 30); // Draw the image
+        // Draw middle circle
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius - 50, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(217, 217, 217, 0.5)';
+        ctx.setLineDash([4, 4]); // Dotted effect
+        ctx.fillStyle = 'rgba(217, 217, 217, 0.02)';
+        ctx.fill();
+        ctx.stroke();
+
+        // Draw the images
+        for (let i = 0; i < numImages; i++) {
+          const angle = (i * (2 * Math.PI)) / numImages + angleOffset; // Calculate angle for each image
+          const x = centerX + (radius - 50) * Math.cos(angle) - 15; // Adjust x to center the image
+          const y = centerY + (radius - 50) * Math.sin(angle) - 15; // Adjust y to center the image
+          const img = loadedImages[i % loadedImages.length]; // Cycle through images
+
+          if (img.complete) {
+            ctx.drawImage(img, x, y, 30, 30); // Draw the image
+          }
         }
-      }
 
-      // Draw inner circle
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, radius - 50, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(217, 217, 217, 0.02)';
-      ctx.fill();
+        // Draw inner circle
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius - 100, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(217, 217, 217, 0.02)';
+        ctx.fill();
 
-      const img = loadedImages[0];
+        const img = loadedImages[0];
+        if (img.complete) {
+          ctx.drawImage(img, centerX - (radius - 100) * 0.75, centerY - (radius - 100) * 0.75, (radius - 100) * 1.5, (radius - 100) * 1.5); // Draw the image
+        }
 
-      if (img.complete) {
-        ctx.drawImage(img, centerX - 50, centerY - 50, 100, 100); // Draw the image
-      }
+        angleOffset += 0.01; // Increment the rotation angle
+        requestAnimationFrame(draw); // Animate
+      };
 
-      angleOffset += 0.01; // Increment the rotation angle
-      requestAnimationFrame(draw); // Animate
+      draw(); // Start the animation
     };
 
-    draw(); // Start the animation
+    // Resize canvas on load and on window resize
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Cleanup event listener on unmount
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+    };
   }, []);
 
   return (
     <div className="page-section hero">
       <div className="hero-content">
-        <span className="hero-title" onClick={() => setDarkMode(!darkMode)}>Hi, I'm Yutika!</span>
+        <span className="hero-title">Hi, I'm Yutika!</span>
         <span className="hero-subtitle">
         I design intuitive experiences by stepping into the user's world and turning complexity into clarity.
         </span>
         <div className="hero-jobs">
+          {/* <div className="hero-job">
+            <svg className="hero-job-border" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50" preserveAspectRatio="none">
+              <rect x="0" y="0" width="100%" height="100%" rx="24" ry="24" fill="none" stroke="rgba(127, 127, 127, 1)" strokeWidth="2" strokeDasharray="8 4" />
+            </svg>
+            <span>Product Designer at <img src={gs} alt="Goldman Sachs" className="hero-image" /> Goldman Sachs</span>
+          </div> */}
           <span className="hero-job">
             Product Designer at <img src={gs} alt="Goldman Sachs" className="hero-image" /> Goldman Sachs
           </span>

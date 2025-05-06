@@ -1,20 +1,19 @@
 import './navbar.css';
 
-function Navbar({ isVisible }: { isVisible: boolean }) {
+function Navbar() {
   return (
-    <nav className={`navbar ${isVisible ? 'visible' : ''}`}>
+    <nav className="navbar">
       <div className="navbar-content">
-        <span className={`navbar-title ${isVisible ? 'visible' : ''}`}>Yutika Arora</span>
         <div className="navbar-links">
-          <a href="#work" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <a href="#projects" rel="noopener noreferrer" aria-label="Work">
             Work
           </a>
-          <span>/</span>
-          <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          {/* <span>/</span> */}
+          {/* <a href="" rel="noopener noreferrer" aria-label="Home">
             About
-          </a>
+          </a> */}
           <span>/</span>
-          <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <a href="#contact" rel="noopener noreferrer" aria-label="Contact">
             Contact
           </a>
           <span>/</span>
