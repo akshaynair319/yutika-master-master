@@ -42,7 +42,7 @@ function App() {
   };
 
   return (
-    <>
+    <div className='container'>
       <div className="progress-bar" style={{ width: `${scrollProgress}%` }}></div>
       <Navbar/>
       <div className="grid-container" onMouseMove={handleMouseMove} style={{
@@ -83,7 +83,7 @@ function App() {
       <HERO />
       <Projects />
       <Footer />
-    </>
+    </div>
   );
 }
 

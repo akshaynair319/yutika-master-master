@@ -17,11 +17,11 @@ function Navbar() {
             Contact
           </a>
           <span>/</span>
-          <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <a href="https://www.linkedin.com/in/yutikaarora" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
             <i className="fab fa-linkedin"></i>
           </a>
           <span>/</span>
-          <a href="https://www.behance.net" target="_blank" rel="noopener noreferrer" aria-label="Behance">
+          <a href="https://www.behance.net/uticaa" target="_blank" rel="noopener noreferrer" aria-label="Behance">
             <i className="fab fa-behance"></i>
           </a>
         </div>

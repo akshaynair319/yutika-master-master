@@ -57,12 +57,9 @@
   transition: transform 0.2s ease-out; /* Smooth distortion effect */
 }
 
-.page-section {
-  padding: 2rem 4rem
+.container {
+  max-width: 1440px;
+  width: 85%;
+  margin: 0 auto;
 }
 
-@media (max-width: 768px) {
-  .page-section {
-    padding: 0 2rem;
-  }
-}

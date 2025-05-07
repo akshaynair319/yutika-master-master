@@ -27,13 +27,13 @@
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  background-color: rgba(19,19,19,0.5);
+  background-color: rgba(19,19,19,0.8);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .navbar {
     left: 0;
-    top: 92%;
+    top: 90%;
     width: 100%;
     display: flex;
   }

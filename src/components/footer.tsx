@@ -1,13 +1,15 @@
 import './footer.css';
+import heart from '../assets/heart.svg'; // Import the image
+import LoadingAnimation from './loading-animation';
 
 function Footer() {
   return (
-    <div className="page-section footer" id="contact">
+    <div className="footer" id="contact">
       <div className="footer-section get-in-touch">
-        <span>Let's get in touch</span>
+        <span style={{fontSize: "1.5rem", color: "white"}}>Let's get in touch</span>
         <span>Have some interesting projects that you'd want me to be a part of?</span>
-        <span>
-          Drop me a message at: <strong>design@yutikaarora.com</strong>
+        <span className="email-contact" style={{marginTop: 'auto'}}>
+          Contact me at <span style={{fontSize: "1.5rem", fontWeight: 700}}>yutikarora1112@gmail.com</span>
         </span>
       </div>
       <div className="footer-section footer-links">
@@ -18,8 +20,9 @@ function Footer() {
           <i className="fab fa-behance"></i>
         </a>
       </div>
+      <LoadingAnimation />
       <div className="footer-section footer-credits">
-        <span>Made with ❤️ by Yutika Arora</span>
+        <span className="made-with-love">Made with <img src={heart} alt="Atom EI" className="hero-image" /> by Yutika Arora</span>
       </div>
     </div>
   );
