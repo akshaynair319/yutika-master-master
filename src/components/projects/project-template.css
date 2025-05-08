@@ -1,0 +1,68 @@
+.project-template {
+    position: relative;
+    z-index: 2;
+    padding-top: 10rem;
+    padding-bottom: 10rem;
+}
+
+.project-experience {
+    padding: 0.75rem 1.5rem; /* Padding for job items */
+    border-radius: 1rem; /* Rounded corners */
+    background: rgba(255, 255, 255, 0.05); /* Use variable */
+    color: var(--text-muted); /* Use variable */
+    border: 1px dashed rgba(127, 127, 127, 1);
+    display: flex;
+    gap: 0.5rem; /* Space between icon and text */
+    align-items: center;
+    position: relative;
+    font-size: 1rem;  
+    margin-bottom: 2rem;  
+    box-sizing: border-box;
+}
+
+.heading {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+.heading .primary-heading {
+    font-size: 1.5rem;
+    color: #D2D2D2BF;
+}
+
+.heading .secondary-heading {
+    font-size: 3rem;
+    color: #FFFFFFBF;
+}
+
+.cover-image {
+    width: 100%;
+    height: 360px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 1rem;
+}
+
+.secondary-image {
+    height: 360px;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+}
+.inner-container {
+    margin: 0 auto;
+    width: 800px;  
+}
+
+.problem-statement {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 1024px) {
+    .inner-container {
+        width: 100%;
+    }
+}

@@ -8,10 +8,6 @@ function Navbar() {
           <a href="#projects" rel="noopener noreferrer" aria-label="Work">
             Work
           </a>
-          {/* <span>/</span> */}
-          {/* <a href="" rel="noopener noreferrer" aria-label="Home">
-            About
-          </a> */}
           <span>/</span>
           <a href="#contact" rel="noopener noreferrer" aria-label="Contact">
             Contact
