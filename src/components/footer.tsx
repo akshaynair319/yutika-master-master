@@ -5,6 +5,7 @@ import LoadingAnimation from './loading-animation';
 function Footer() {
   return (
     <div className="footer" id="contact">
+      <LoadingAnimation />
       <div className="footer-section get-in-touch">
         <span style={{fontSize: "1.5rem", color: "white"}}>Let's get in touch</span>
         <span>Have some interesting projects that you'd want me to be a part of?</span>
@@ -20,7 +21,6 @@ function Footer() {
           <i className="fab fa-behance"></i>
         </a>
       </div>
-      <LoadingAnimation />
       <div className="footer-section footer-credits">
         <span className="made-with-love">Made with <img src={heart} alt="Atom EI" className="hero-image" /> by Yutika Arora</span>
       </div>
